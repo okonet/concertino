@@ -1,0 +1,36 @@
+{
+  "name": "concertino",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "posttest": "npm run format",
+    "start": "node src/index.js",
+    "format": "prettier --loglevel warn --write \"**/*.{ts,json,md}\"",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/okonet/concertino.git"
+  },
+  "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/okonet/concertino/issues"
+  },
+  "homepage": "https://github.com/okonet/concertino#readme",
+  "dependencies": {
+    "ics": "^2.35.0",
+    "isomorphic-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vercel/node": "^2.2.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.2",
+    "prettier": "^2.7.1"
+  },
+  "lint-staged": {
+    "*.{ts,json,md}": "prettier --write"
+  }
+}
