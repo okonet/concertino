@@ -50,11 +50,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const { token, id } = req.query;
 
   try {
-    const events = getEvents(id, token);
+    const events = await getEvents(id, token);
     res.setHeader("Content-Type", "text/calendar");
-    res.status(200).send(events);
+    res.status(200).end(events);
   } catch (e) {
     console.error(e);
-    res.status(500).send(e);
+    res.status(500).send(e.toString());
   }
 }
