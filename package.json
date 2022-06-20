@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/okonet/concertino.git"
   },
-  "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
+  "author": "Andrey Okonetchnikov <andrey@okonet.dev>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/okonet/concertino/issues"
