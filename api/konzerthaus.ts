@@ -1,8 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { createEvents, EventAttributes } from "ics";
 import "isomorphic-fetch";
-import { createEvents, DateArray } from "ics";
-import { findTimeZone, setTimeZone } from "timezone-support";
-import { parseZonedTime } from "timezone-support/dist/parse-format";
 
 async function getEvents(id, token) {
   if (!id || !token) {
@@ -18,19 +16,25 @@ async function getEvents(id, token) {
     throw new Error("No events found...");
   }
 
-  const events = konzerte.map((event) => {
+  const events = konzerte.map((event): EventAttributes => {
     const { konzertdaten } = event;
     const { eventdata } = konzertdaten;
     const { begin_date, parent_group, name, venue, url } = eventdata;
-    const localTZ = findTimeZone("Europe/Vienna");
-    const parsedDate = parseZonedTime(begin_date, "YYYY-MM-DD[T]HH:mm:ss");
-    const dateInTZ = setTimeZone(parsedDate, localTZ);
-    const { year, month, day, hours, minutes } = dateInTZ;
+    const startDate = new Date(begin_date);
     return {
       title: name,
       description: parent_group,
-      start: [year, month, day, hours, minutes] as DateArray,
-      duration: { hours: 2, minutes: 30 },
+      start: [
+        startDate.getFullYear(),
+        startDate.getMonth() + 1,
+        startDate.getDate(),
+        startDate.getHours(),
+        startDate.getMinutes(),
+      ],
+      startInputType: "local",
+      startOutputType: "local",
+      endOutputType: "local",
+      duration: { hours: 2 },
       url,
       location: `${venue.name}, ${venue.location}, ${venue.street}, ${venue.cap} ${venue.city}`,
     };

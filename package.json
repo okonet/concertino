@@ -22,8 +22,7 @@
   "homepage": "https://github.com/okonet/concertino#readme",
   "dependencies": {
     "ics": "^2.35.0",
-    "isomorphic-fetch": "^3.0.0",
-    "timezone-support": "^2.0.2"
+    "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@vercel/node": "^2.2.0",
