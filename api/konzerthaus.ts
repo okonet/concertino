@@ -1,6 +1,8 @@
-import "isomorphic-fetch";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import "isomorphic-fetch";
 import { createEvents, DateArray } from "ics";
+import { findTimeZone, setTimeZone } from "timezone-support";
+import { parseZonedTime } from "timezone-support/dist/parse-format";
 
 async function getEvents(id, token) {
   if (!id || !token) {
@@ -20,17 +22,14 @@ async function getEvents(id, token) {
     const { konzertdaten } = event;
     const { eventdata } = konzertdaten;
     const { begin_date, parent_group, name, venue, url } = eventdata;
-    const date = new Date(begin_date);
+    const localTZ = findTimeZone("Europe/Vienna");
+    const parsedDate = parseZonedTime(begin_date, "YYYY-MM-DD[T]HH:mm:ss");
+    const dateInTZ = setTimeZone(parsedDate, localTZ);
+    const { year, month, day, hours, minutes } = dateInTZ;
     return {
       title: name,
       description: parent_group,
-      start: [
-        date.getFullYear(),
-        date.getMonth() + 1,
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-      ] as DateArray,
+      start: [year, month, day, hours, minutes] as DateArray,
       duration: { hours: 2, minutes: 30 },
       url,
       location: `${venue.name}, ${venue.location}, ${venue.street}, ${venue.cap} ${venue.city}`,
