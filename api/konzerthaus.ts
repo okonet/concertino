@@ -17,13 +17,21 @@ async function getEvents(id, token) {
   }
 
   const events = konzerte.map((event): EventAttributes => {
-    const { konzertdaten } = event;
+    const { konzertdaten, qr_access_code, tickets } = event;
     const { eventdata } = konzertdaten;
+    console.log(eventdata);
+    console.log(tickets);
     const { begin_date, parent_group, name, venue, url } = eventdata;
     const startDate = new Date(begin_date);
     return {
       title: name,
-      description: parent_group,
+      description: `${parent_group ?? `Abo: ${parent_group}`}\n\n
+Tickets:\n\n
+${tickets.map(
+  (ticket) =>
+    `- ${ticket.sektor_name1} ${ticket.sektor_name2}, Reihe ${ticket.sipl_reihennr}Platz ${ticket.sipl_platznr}\n`
+)}\n
+Info:\n\n${url}`,
       start: [
         startDate.getFullYear(),
         startDate.getMonth() + 1,
@@ -35,7 +43,7 @@ async function getEvents(id, token) {
       startOutputType: "local",
       endOutputType: "local",
       duration: { hours: 2 },
-      url,
+      url: `https://api.qrserver.com/v1/create-qr-code/?data=${qr_access_code}&ecc=H`,
       location: `${venue.name}, ${venue.location}, ${venue.street}, ${venue.cap} ${venue.city}`,
     };
   });
