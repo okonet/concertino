@@ -32,7 +32,7 @@ ${tickets
     (ticket) =>
       `- ${ticket.sektor_name1} ${ticket.sektor_name2}, Reihe ${ticket.sipl_reihennr}Platz ${ticket.sipl_platznr}`
   )
-  .join("\n")}
+  .join("\n")}\n
 Info:\n${url}\n
 Ticket portal: https://sitzplatz.konzerthaus.at/?token=${token}`,
       start: [
