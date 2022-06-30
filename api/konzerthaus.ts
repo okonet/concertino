@@ -25,15 +25,16 @@ async function getEvents(id, token) {
     const startDate = new Date(begin_date);
     return {
       title: name,
-      description: `${parent_group ?? `Abo: ${parent_group}`}\n\n
+      description: `${parent_group ? `Abo: ${parent_group}\n` : ""}
 Tickets:\n
-${tickets.map(
-  (ticket) =>
-    `- ${ticket.sektor_name1} ${ticket.sektor_name2}, Reihe ${ticket.sipl_reihennr}Platz ${ticket.sipl_platznr}\n`
-)}\n\n
-Info:\n${url}\n\n
-Ticket portal:\n
- https://sitzplatz.konzerthaus.at/?token=${token}`,
+${tickets
+  .map(
+    (ticket) =>
+      `- ${ticket.sektor_name1} ${ticket.sektor_name2}, Reihe ${ticket.sipl_reihennr}Platz ${ticket.sipl_platznr}`
+  )
+  .join("\n")}
+Info:\n${url}\n
+Ticket portal: https://sitzplatz.konzerthaus.at/?token=${token}`,
       start: [
         startDate.getFullYear(),
         startDate.getMonth() + 1,
