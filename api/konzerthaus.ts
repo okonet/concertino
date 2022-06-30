@@ -31,7 +31,9 @@ ${tickets.map(
   (ticket) =>
     `- ${ticket.sektor_name1} ${ticket.sektor_name2}, Reihe ${ticket.sipl_reihennr}Platz ${ticket.sipl_platznr}\n`
 )}\n
-Info:\n\n${url}`,
+Info:\n\n${url}
+Ticket portal:\n\n
+ https://sitzplatz.konzerthaus.at/?token=${token}`,
       start: [
         startDate.getFullYear(),
         startDate.getMonth() + 1,
