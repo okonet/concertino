@@ -26,13 +26,13 @@ async function getEvents(id, token) {
     return {
       title: name,
       description: `${parent_group ?? `Abo: ${parent_group}`}\n\n
-Tickets:\n\n
+Tickets:\n
 ${tickets.map(
   (ticket) =>
     `- ${ticket.sektor_name1} ${ticket.sektor_name2}, Reihe ${ticket.sipl_reihennr}Platz ${ticket.sipl_platznr}\n`
-)}\n
-Info:\n\n${url}
-Ticket portal:\n\n
+)}\n\n
+Info:\n${url}\n\n
+Ticket portal:\n
  https://sitzplatz.konzerthaus.at/?token=${token}`,
       start: [
         startDate.getFullYear(),
